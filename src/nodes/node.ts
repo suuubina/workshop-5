@@ -33,31 +33,17 @@ export async function node(
     const { senderId, message } = req.body;
     console.log(`Received message from Node ${senderId}: ${message}`);
 
-    // TODO: Implement logic to handle the incoming message
-
-    res.sendStatus(200);
-  });
-
-  // Route to start the consensus algorithm
-  node.get("/start", async (req, res) => {
-    // Check if all nodes are ready
-    if (!nodesAreReady()) {
-      res.status(400).json({ error: "Not all nodes are ready yet" });
-      return;
+// TODO implement this
+  // this route allows retrieving the current status of the node
+  node.get("/status", (req, res) => {
+    if (isFaulty) {
+      res.status(500).send("faulty");
+    } else {
+      res.status(200).send("live");
     }
-
-    // TODO: Implement the consensus algorithm logic here
-
-    res.sendStatus(200);
   });
 
-  // Route to stop the consensus algorithm
-  node.get("/stop", async (req, res) => {
-    // TODO: Implement logic to stop the consensus algorithm
-
-    res.sendStatus(200);
-  });
-
+    
   // Route to get the current state of a node
   node.get("/getState", (req, res) => {
     res.json({
